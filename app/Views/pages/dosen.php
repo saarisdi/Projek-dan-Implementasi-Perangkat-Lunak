@@ -46,12 +46,10 @@
                 'nip' => '12345678906',
                 'keterangan' => 'Keterangan tambahan tentang Dosen 6.',
             ],
-            // Tambahkan entri lain sesuai kebutuhan
         ];
 
         foreach ($dosenList as $dosen) : ?>
             <div class="col-md-4 mb-3">
-                <!-- Informasi Dosen -->
                 <div class="card">
                     <img src="<?= $dosen['foto'] ?>" class="card-img-top" alt="Foto <?= $dosen['nama'] ?>">
                     <div class="card-body">
