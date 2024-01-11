@@ -1,58 +1,55 @@
-<?= $this->extend('layout/template'); ?>
+<?= $this->extend($config->viewLayout) ?>
+<?= $this->section('main') ?>
 
-<?= $this->section('content'); ?>
-<!doctype html>
-<html lang="en" class="h-100">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
 
-<body class="d-flex flex-column h-100">
+            <div class="card">
+                <h2 class="card-header"><?=lang('Auth.register')?></h2>
+                <div class="card-body">
 
-    <!-- Begin page content -->
-    <main class="flex-shrink-0">
-        <div class="container">
-            <h1 class="mt-5">Register Form</h1>
-            Silahkan Daftarkan Identitas Anda
-            <hr />
-            <?php if (!empty(session()->getFlashdata('error'))) : ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <h4>Periksa Entrian Form</h4>
-                    </hr />
-                    <?php echo session()->getFlashdata('error'); ?>
+                    <?= view('Myth\Auth\Views\_message_block') ?>
+
+                    <form action="<?= url_to('register') ?>" method="post">
+                        <?= csrf_field() ?>
+
+                        <div class="form-group">
+                            <label for="email"><?=lang('Auth.email')?></label>
+                            <input type="email" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>"
+                                   name="email" aria-describedby="emailHelp" placeholder="<?=lang('Auth.email')?>" value="<?= old('email') ?>">
+                            <small id="emailHelp" class="form-text text-muted"><?=lang('Auth.weNeverShare')?></small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username"><?=lang('Auth.username')?></label>
+                            <input type="text" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" name="username" placeholder="<?=lang('Auth.username')?>" value="<?= old('username') ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password"><?=lang('Auth.password')?></label>
+                            <input type="password" name="password" class="form-control <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?=lang('Auth.password')?>" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pass_confirm"><?=lang('Auth.repeatPassword')?></label>
+                            <input type="password" name="pass_confirm" class="form-control <?php if (session('errors.pass_confirm')) : ?>is-invalid<?php endif ?>" placeholder="<?=lang('Auth.repeatPassword')?>" autocomplete="off">
+                        </div>
+
+                        <br>
+
+                        <button type="submit" class="btn btn-primary btn-block"><?=lang('Auth.register')?></button>
+                    </form>
+
+
+                    <hr>
+
+                    <p><?=lang('Auth.alreadyRegistered')?> <a href="<?= url_to('login') ?>"><?=lang('Auth.signIn')?></a></p>
                 </div>
-            <?php endif; ?>
-            <form method="post" action="<?= base_url(); ?>/register/process">
-                <?= csrf_field(); ?>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password">
-                </div>
-                <div class="mb-3">
-                    <label for="password_conf" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="password_conf" name="password_conf">
-                </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name">
-                </div>
-                <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </div>
-            </form>
-            <hr />
+            </div>
 
         </div>
-    </main>
+    </div>
+</div>
 
-    <footer class="footer mt-auto py-3 bg-light">
-        <div class="container">
-            <span class="text-muted">Place sticky footer content here.</span>
-        </div>
-    </footer>
-
-</body>
-
-</html>
-<?= $this->endSection(); ?>
+<?= $this->endSection() ?>
